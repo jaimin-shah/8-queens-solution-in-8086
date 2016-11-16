@@ -4,7 +4,6 @@ valid DB 00H ;0 shows valid 1 shows invalid
 correct DB 00H; correct sol found 1 , not found 0
 row DB ? ;row no stat from 0
 col DB ? ;col no stat from 0
-placed DB 00H
 mydata ends
 
 mystack segment stack
@@ -33,7 +32,7 @@ mycode segment
 	push bx
 	call solver
 
-	;check if correct variable == 0, if yes there exists answer
+	
     LEA SI, board              ; set SI=offset address of ARRAY
     MOV BH, 8                   
     MOV BL, 8   
@@ -187,7 +186,8 @@ mycode segment
     checkdiag endp
 	
 	proc solver 
-		
+    ;input bx pushed at location [bp+14]
+    ;output returned in same location so when we pop bx after call it will be answer 55H value in bx indiacted solution is found
 		push ax
         push cx
 		push dx
